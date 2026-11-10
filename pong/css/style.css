@@ -1,0 +1,177 @@
+/* =========================================================
+   Pong - Dois Jogadores - Folha de estilos
+========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --cor-fundo: #f6c945;
+  --cor-superficie: #fff6dc;
+  --cor-borda: #111111;
+  --cor-texto: #111111;
+  --cor-texto-suave: #4a3b10;
+  --cor-jogador1: #1fb5ae;
+  --cor-jogador2: #f0647a;
+  --cor-primaria: #1fb5ae;
+  --cor-destaque: #ff7f5c;
+  --sombra: 5px 5px 0 var(--cor-borda);
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Trebuchet MS", "Comic Sans MS", "Segoe UI", Arial, sans-serif;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+}
+
+.cabecalho {
+  text-align: center;
+  padding: 1.6rem 1rem 0.6rem;
+}
+
+.cabecalho h1 {
+  font-family: "Trebuchet MS", "Comic Sans MS", sans-serif;
+  font-weight: 900;
+  font-size: 2.4rem;
+  color: #fff;
+  -webkit-text-stroke: 2px var(--cor-borda);
+  paint-order: stroke fill;
+  text-shadow: 4px 4px 0 var(--cor-borda);
+}
+
+.area-jogo {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.placar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.placar-jogador {
+  flex: 1 1 220px;
+  background: var(--cor-superficie);
+  border: 4px solid var(--cor-borda);
+  border-radius: 18px;
+  padding: 0.8rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  box-shadow: var(--sombra);
+  transition: transform 0.25s ease;
+}
+
+#painelJogador1 {
+  background: var(--cor-jogador1);
+}
+
+#painelJogador2 {
+  background: var(--cor-jogador2);
+}
+
+/* Estado dinâmico: destaca o jogador que acabou de marcar ponto */
+.placar-jogador.marcou {
+  transform: scale(1.07) rotate(-1.5deg);
+}
+
+.placar-etiqueta {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--cor-borda);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+.placar-pontos {
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: #fff;
+  -webkit-text-stroke: 2px var(--cor-borda);
+  paint-order: stroke fill;
+  text-shadow: 3px 3px 0 var(--cor-borda);
+}
+
+.controles-centro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.btn {
+  display: inline-block;
+  border: 4px solid var(--cor-borda);
+  border-radius: 999px;
+  padding: 0.5rem 1.4rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 900;
+  color: var(--cor-borda);
+  cursor: pointer;
+  box-shadow: 4px 4px 0 var(--cor-borda);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.btn-primario {
+  background: #fff;
+}
+
+.btn-secundario {
+  background: var(--cor-destaque);
+}
+
+.btn:hover:not(:disabled) {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--cor-borda);
+}
+
+.btn:active:not(:disabled) {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 var(--cor-borda);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.mensagem-vencedor {
+  min-height: 1.6rem;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #fff;
+  -webkit-text-stroke: 2px var(--cor-borda);
+  paint-order: stroke fill;
+  text-shadow: 3px 3px 0 var(--cor-borda);
+  text-align: center;
+}
+
+#mesaPong {
+  background: var(--cor-destaque);
+  border: 6px solid var(--cor-borda);
+  border-radius: 6px;
+  box-shadow: 8px 8px 0 var(--cor-borda);
+  max-width: 100%;
+}
+
+.instrucoes {
+  color: var(--cor-borda);
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-align: center;
+}

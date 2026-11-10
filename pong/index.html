@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pong - Dois Jogadores</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="cabecalho">
+    <h1>🏓 Pong - Dois Jogadores</h1>
+  </header>
+
+  <main class="area-jogo">
+    <section class="placar" id="placar">
+      <div class="placar-jogador" id="painelJogador1">
+        <span class="placar-etiqueta">Jogador 1 (teclas W / S)</span>
+        <span class="placar-pontos" id="pontosJogador1">0</span>
+      </div>
+
+      <div class="controles-centro">
+        <button type="button" id="btnIniciarPausar" class="btn btn-primario">Iniciar</button>
+        <button type="button" id="btnReiniciar" class="btn btn-secundario">Reiniciar</button>
+      </div>
+
+      <div class="placar-jogador" id="painelJogador2">
+        <span class="placar-etiqueta">Jogador 2 (setas ↑ / ↓)</span>
+        <span class="placar-pontos" id="pontosJogador2">0</span>
+      </div>
+    </section>
+
+    <p id="mensagemVencedor" class="mensagem-vencedor" role="alert"></p>
+
+    <canvas id="mesaPong" width="800" height="450"></canvas>
+
+    <p class="instrucoes">
+      Primeiro jogador a fazer 5 pontos vence a partida. Use W/S e as setas ↑/↓ para mover as raquetes.
+    </p>
+  </main>
+
+  <script src="js/pong.js"></script>
+</body>
+</html>
