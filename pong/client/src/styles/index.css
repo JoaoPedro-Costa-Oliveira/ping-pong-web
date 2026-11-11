@@ -430,28 +430,12 @@ kbd {
   stroke-width: 8;
 }
 
-.court .paddle-face,
-.court .paddle-handle {
-  stroke: #111;
-  stroke-width: 3;
-}
-
 .court .paddle-face.left {
   fill: #1fb5ae;
 }
 
 .court .paddle-face.right {
   fill: #f0647a;
-}
-
-.court .paddle-handle {
-  fill: #e8a04c;
-}
-
-.court .paddle-shine {
-  stroke: rgba(255, 255, 255, 0.7);
-  stroke-width: 3;
-  stroke-linecap: round;
 }
 
 .court .paddle.has-turn {
