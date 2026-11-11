@@ -10,6 +10,7 @@ import type {
   RoomInfo,
   ServerToClientEvents,
 } from "../src/protocol.js";
+import { CONFIG } from "../src/game.js";
 import { createGameServer, type GameServer } from "../src/server.js";
 
 type Client = Socket<ServerToClientEvents, ClientToServerEvents> & {
@@ -98,7 +99,11 @@ describe("partida multiplayer", () => {
     // raquetes em extremos opostos, para a bola não ser rebatida
     alice.emit("player:input", { dir: -1 });
     bob.emit("player:input", { dir: 1 });
-    await waitFor(() => alice.lastState!.paddles.left === 0 && bob.lastState!.paddles.right === 360);
+    await waitFor(
+      () =>
+        alice.lastState!.paddles.left === 0 &&
+        bob.lastState!.paddles.right === CONFIG.height - CONFIG.paddleHeight,
+    );
 
     // saque correto muda a fase nos dois clientes
     serverClient.emit("player:serve");

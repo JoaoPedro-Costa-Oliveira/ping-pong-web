@@ -49,6 +49,7 @@ describe("PongGame", () => {
     const start = game.paddles.left.y;
     game.setInput("left", -1);
     game.tick();
+    assert.equal(start - game.paddles.left.y, 8.5);
     assert.ok(game.paddles.left.y < start);
     for (let i = 0; i < 500; i++) game.tick();
     assert.equal(game.paddles.left.y, 0);

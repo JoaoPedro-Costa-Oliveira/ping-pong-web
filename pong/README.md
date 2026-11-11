@@ -41,6 +41,8 @@ Outros comandos: `npm test` (regras + integração com 2 clientes Socket.IO) e `
 | Mover a raquete | `W` / `S` ou `↑` / `↓` (ou botões ▲▼ em telas de toque) |
 | Sacar (quando for a sua vez) | `Espaço` / `Enter` ou botão **Sacar** |
 
+As raquetes têm uma área de impacto maior e se movem mais rápido. Durante a partida, o menu **Áudio** permite ligar/desligar a música e os efeitos sonoros, além de ajustar os volumes. O áudio começa após a primeira interação com o jogo e as preferências ficam salvas neste navegador.
+
 Regras: primeiro a 5 pontos vence. **Quem sofre o ponto saca a próxima bola** ("passar a vez"); se não sacar em 8 s o
 servidor saca automaticamente. Durante cada jogada, a bola acelera com o tempo e a cada rebatida, até um limite;
 a velocidade volta ao valor inicial no saque seguinte.

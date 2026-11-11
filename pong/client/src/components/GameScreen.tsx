@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { GameSnapshot, RoomInfo, Side } from "../../../server/src/protocol";
 import { useControls } from "../hooks/useControls";
+import { useGameAudio } from "../hooks/useGameAudio";
 import type { GameConnection } from "../hooks/useGame";
 import { Court } from "./Court";
 import { Scoreboard } from "./Scoreboard";
@@ -16,8 +17,10 @@ interface GameScreenProps {
 export function GameScreen({ game, room, snapshot, mySide }: GameScreenProps) {
   const { sendInput, serve, rematch, leaveRoom } = game;
   const controls = useControls(sendInput, serve);
+  const audio = useGameAudio(snapshot, room.config);
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   // Ref usada apenas para dar o foco do teclado à tela do jogo (os eventos de tecla são do React)
   const pageRef = useRef<HTMLDivElement>(null);
 
@@ -121,6 +124,8 @@ export function GameScreen({ game, room, snapshot, mySide }: GameScreenProps) {
       ref={pageRef}
       className="game-page"
       tabIndex={0}
+      onPointerDownCapture={audio.enableAudio}
+      onKeyDownCapture={audio.enableAudio}
       onKeyDown={controls.onKeyDown}
       onKeyUp={controls.onKeyUp}
       onBlur={controls.releaseAll}
@@ -134,6 +139,61 @@ export function GameScreen({ game, room, snapshot, mySide }: GameScreenProps) {
           <button type="button" className="btn btn-ghost" onClick={leaveRoom}>
             Sair
           </button>
+          <div className="settings-control">
+            <button
+              type="button"
+              className="btn btn-ghost"
+              aria-expanded={settingsOpen}
+              aria-controls="audio-settings"
+              onClick={() => setSettingsOpen((open) => !open)}
+            >
+              Áudio
+            </button>
+            {settingsOpen && (
+              <section id="audio-settings" className="settings-menu" aria-label="Configurações de áudio">
+                <h2>Configurações de áudio</h2>
+                <label className="setting-toggle">
+                  <input
+                    type="checkbox"
+                    checked={audio.settings.music}
+                    onChange={(event) => audio.updateSettings({ music: event.currentTarget.checked })}
+                  />
+                  Música
+                </label>
+                <label className="setting-volume">
+                  Volume da música
+                  <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.05"
+                    value={audio.settings.musicVolume}
+                    onChange={(event) => audio.updateSettings({ musicVolume: Number(event.currentTarget.value) })}
+                  />
+                </label>
+                <label className="setting-toggle">
+                  <input
+                    type="checkbox"
+                    checked={audio.settings.effects}
+                    onChange={(event) => audio.updateSettings({ effects: event.currentTarget.checked })}
+                  />
+                  Efeitos sonoros
+                </label>
+                <label className="setting-volume">
+                  Volume dos efeitos
+                  <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.05"
+                    value={audio.settings.effectsVolume}
+                    onChange={(event) => audio.updateSettings({ effectsVolume: Number(event.currentTarget.value) })}
+                  />
+                </label>
+                <p className="settings-hint">O áudio começa depois da primeira interação com o jogo.</p>
+              </section>
+            )}
+          </div>
         </div>
       </header>
 

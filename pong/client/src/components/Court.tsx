@@ -26,12 +26,20 @@ export function Court({ config, snapshot, mySide, onFocusGame }: CourtProps) {
 
       {(["left", "right"] as const).map((side) => {
         const face = side === "left" ? paddleMargin + paddleWidth : width - paddleMargin - paddleWidth;
-        const centerX = side === "left" ? face - 20 : face + 20;
+        const centerX = side === "left" ? face - paddleWidth / 2 : face + paddleWidth / 2;
         const centerY = paddles[side] + paddleHeight / 2;
+        const faceWidth = paddleWidth + 8;
         return (
           <g key={side} className={paddleClass(side)}>
-            <rect className="paddle-handle" x={side === "left" ? centerX - 29 : centerX + 13} y={centerY - 5} width={16} height={10} rx={3} />
-            <ellipse className={`paddle-face ${side}`} cx={centerX} cy={centerY} rx={20} ry={paddleHeight / 2} />
+            <rect className="paddle-handle" x={side === "left" ? centerX - 25 : centerX + 9} y={centerY - 5} width={16} height={10} rx={3} />
+            <rect
+              className={`paddle-face ${side}`}
+              x={centerX - faceWidth / 2}
+              y={centerY - paddleHeight / 2}
+              width={faceWidth}
+              height={paddleHeight}
+              rx={faceWidth / 2}
+            />
             <line className="paddle-shine" x1={centerX - 6} y1={centerY - paddleHeight / 2 + 14} x2={centerX - 6} y2={centerY - paddleHeight / 2 + 28} />
           </g>
         );

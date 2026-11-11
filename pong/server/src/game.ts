@@ -5,15 +5,15 @@ export const TICKS_PER_SECOND = 60;
 export const CONFIG: GameConfig = {
   width: 800,
   height: 450,
-  paddleWidth: 12,
-  paddleHeight: 90,
+  paddleWidth: 18,
+  paddleHeight: 110,
   paddleMargin: 50,
   ballRadius: 8,
   pointsToWin: 5,
   serveTimeoutSeconds: 8,
 };
 
-const PADDLE_SPEED = 6;
+const PADDLE_SPEED = 8.5;
 const BALL_INITIAL_SPEED = 6;
 const BALL_MAX_SPEED = 14;
 const BALL_SPEEDUP = 1.05;
