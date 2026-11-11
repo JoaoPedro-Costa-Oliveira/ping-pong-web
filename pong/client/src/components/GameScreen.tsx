@@ -160,17 +160,6 @@ export function GameScreen({ game, room, snapshot, mySide }: GameScreenProps) {
                   />
                   Música
                 </label>
-                <label className="setting-volume">
-                  Volume da música
-                  <input
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.05"
-                    value={audio.settings.musicVolume}
-                    onChange={(event) => audio.updateSettings({ musicVolume: Number(event.currentTarget.value) })}
-                  />
-                </label>
                 <label className="setting-toggle">
                   <input
                     type="checkbox"
@@ -190,7 +179,7 @@ export function GameScreen({ game, room, snapshot, mySide }: GameScreenProps) {
                     onChange={(event) => audio.updateSettings({ effectsVolume: Number(event.currentTarget.value) })}
                   />
                 </label>
-                <p className="settings-hint">O áudio começa depois da primeira interação com o jogo.</p>
+                <p className="settings-hint">Ajuste o volume da música no player do YouTube. Os efeitos começam após a primeira interação.</p>
               </section>
             )}
           </div>
@@ -214,6 +203,23 @@ export function GameScreen({ game, room, snapshot, mySide }: GameScreenProps) {
         <aside className="side">
           <PointsTable history={room.history} />
           <EventLog log={room.log} />
+          {audio.settings.music && (
+            <section className="card side-card">
+              <h2>Música do jogo</h2>
+              <iframe
+                className="music-player"
+                title="SoYeah - ping pong game"
+                src="https://www.youtube.com/embed/EZGU5GObWM0?autoplay=1&loop=1&playlist=EZGU5GObWM0"
+                allow="autoplay; encrypted-media; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+              <p className="music-hint">
+                Se a música não começar, aperte play no player.{" "}
+                <a href="https://youtu.be/EZGU5GObWM0" target="_blank" rel="noreferrer">Abrir no YouTube</a>
+              </p>
+            </section>
+          )}
         </aside>
       </div>
 

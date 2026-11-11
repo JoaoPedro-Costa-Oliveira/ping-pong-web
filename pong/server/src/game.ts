@@ -5,8 +5,8 @@ export const TICKS_PER_SECOND = 60;
 export const CONFIG: GameConfig = {
   width: 800,
   height: 450,
-  paddleWidth: 18,
-  paddleHeight: 110,
+  paddleWidth: 22,
+  paddleHeight: 125,
   paddleMargin: 50,
   ballRadius: 8,
   pointsToWin: 5,

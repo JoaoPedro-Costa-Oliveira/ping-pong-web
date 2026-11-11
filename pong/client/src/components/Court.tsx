@@ -30,10 +30,19 @@ export function Court({ config, snapshot, mySide, onFocusGame }: CourtProps) {
           <g key={side} className={paddleClass(side)}>
             <rect
               className={`paddle-face ${side}`}
-              x={x}
-              y={paddles[side]}
-              width={paddleWidth}
-              height={paddleHeight}
+              x={x + 2}
+              y={paddles[side] + 2}
+              width={paddleWidth - 4}
+              height={paddleHeight - 4}
+              rx={(paddleWidth - 4) / 2}
+            />
+            <rect
+              className="paddle-highlight"
+              x={x + 6}
+              y={paddles[side] + paddleWidth / 2}
+              width={3}
+              height={paddleHeight - paddleWidth}
+              rx={1.5}
             />
           </g>
         );

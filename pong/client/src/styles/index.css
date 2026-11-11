@@ -225,7 +225,7 @@ kbd {
 /* ---------- Tela do jogo ---------- */
 
 .game-page {
-  max-width: 1180px;
+  max-width: 1420px;
   margin: 0 auto;
   padding: 1rem 1.2rem 2.5rem;
   display: flex;
@@ -438,6 +438,18 @@ kbd {
   fill: #f0647a;
 }
 
+.court .paddle-face {
+  stroke: #111;
+  stroke-width: 4;
+  filter: drop-shadow(2px 2px 0 #111);
+}
+
+.court .paddle-highlight {
+  fill: #fff;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
 .court .paddle.has-turn {
   filter: drop-shadow(0 0 5px white);
 }
@@ -524,6 +536,20 @@ kbd {
 .side-card h2 {
   font-size: 1rem;
   margin-bottom: 0.7rem;
+}
+
+.music-player {
+  display: block;
+  width: 100%;
+  min-height: 200px;
+  border: 0;
+  border-radius: 8px;
+}
+
+.music-hint {
+  margin-top: 0.6rem;
+  color: var(--text-soft);
+  font-size: 0.8rem;
 }
 
 /* Tabela dinâmica */

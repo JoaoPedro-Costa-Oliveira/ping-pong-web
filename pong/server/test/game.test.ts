@@ -74,6 +74,21 @@ describe("PongGame", () => {
     assert.equal(game.scores.left + game.scores.right, 0);
   });
 
+  it("rebate também na parte ampliada da raquete", () => {
+    const game = new PongGame(CONFIG, "left", fixedRandom);
+    launch(game);
+    const paddle = game.paddles.right;
+    game.ball.x = paddle.x - CONFIG.ballRadius - 1;
+    game.ball.y = paddle.y + CONFIG.paddleHeight - CONFIG.ballRadius;
+    game.ball.vx = 6;
+    game.ball.vy = 0;
+
+    game.tick();
+
+    assert.ok(game.ball.vx < 0);
+    assert.equal(game.scores.left + game.scores.right, 0);
+  });
+
   it("acelera durante a jogada até o limite e volta à velocidade inicial no próximo saque", () => {
     const game = new PongGame(CONFIG, "left", fixedRandom);
     launch(game);
