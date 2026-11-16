@@ -4,6 +4,7 @@ import type { GameConfig, GameSnapshot } from "../../../server/src/protocol";
 export interface AudioSettings {
   music: boolean;
   effects: boolean;
+  musicVolume: number;
   effectsVolume: number;
 }
 
@@ -11,8 +12,10 @@ const STORAGE_KEY = "pong-audio-settings";
 const DEFAULT_SETTINGS: AudioSettings = {
   music: true,
   effects: true,
+  musicVolume: 0.3,
   effectsVolume: 0.4,
 };
+const MUSIC_SRC = "/audio/music.mp3";
 
 interface PreviousBall {
   x: number;
@@ -28,6 +31,9 @@ function isAudioSettings(value: unknown): value is AudioSettings {
   return (
     typeof settings.music === "boolean" &&
     typeof settings.effects === "boolean" &&
+    typeof settings.musicVolume === "number" &&
+    settings.musicVolume >= 0 &&
+    settings.musicVolume <= 1 &&
     typeof settings.effectsVolume === "number" &&
     settings.effectsVolume >= 0 &&
     settings.effectsVolume <= 1
@@ -48,7 +54,9 @@ function loadSettings(): AudioSettings {
 
 export function useGameAudio(snapshot: GameSnapshot, config: GameConfig) {
   const [settings, setSettings] = useState<AudioSettings>(loadSettings);
+  const [audioReady, setAudioReady] = useState(false);
   const audioContextRef = useRef<AudioContext | null>(null);
+  const musicRef = useRef<HTMLAudioElement | null>(null);
   const previousBallRef = useRef<PreviousBall | null>(null);
 
   useEffect(() => {
@@ -62,7 +70,10 @@ export function useGameAudio(snapshot: GameSnapshot, config: GameConfig) {
   const enableAudio = useCallback(() => {
     const audioContext = audioContextRef.current ?? new AudioContext();
     audioContextRef.current = audioContext;
-    void audioContext.resume().catch((error: unknown) => console.error("Não foi possível ativar o áudio.", error));
+    void audioContext.resume().then(
+      () => setAudioReady(true),
+      (error: unknown) => console.error("Não foi possível ativar o áudio.", error),
+    );
   }, []);
 
   const updateSettings = useCallback((updates: Partial<AudioSettings>) => {
@@ -87,6 +98,30 @@ export function useGameAudio(snapshot: GameSnapshot, config: GameConfig) {
     oscillator.start(now);
     oscillator.stop(now + duration);
   }, []);
+
+  useEffect(() => {
+    if (!musicRef.current) {
+      const music = new Audio(MUSIC_SRC);
+      music.loop = true;
+      musicRef.current = music;
+    }
+    const music = musicRef.current;
+    music.volume = settings.musicVolume;
+
+    if (audioReady && settings.music && settings.musicVolume > 0) {
+      void music.play().catch((error: unknown) => console.error("Não foi possível tocar a música.", error));
+    } else {
+      music.pause();
+    }
+  }, [audioReady, settings.music, settings.musicVolume]);
+
+  useEffect(
+    () => () => {
+      musicRef.current?.pause();
+      musicRef.current = null;
+    },
+    [],
+  );
 
   useEffect(() => {
     const current: PreviousBall = { ...snapshot.ball, dx: 0, dy: 0, phase: snapshot.phase };

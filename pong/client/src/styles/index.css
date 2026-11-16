@@ -538,20 +538,6 @@ kbd {
   margin-bottom: 0.7rem;
 }
 
-.music-player {
-  display: block;
-  width: 100%;
-  min-height: 200px;
-  border: 0;
-  border-radius: 8px;
-}
-
-.music-hint {
-  margin-top: 0.6rem;
-  color: var(--text-soft);
-  font-size: 0.8rem;
-}
-
 /* Tabela dinâmica */
 
 .points-table {
